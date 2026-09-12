@@ -1,0 +1,21 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="cyan" x1="8" y1="8" x2="36" y2="34" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#18E7FF"/><stop offset="1" stop-color="#1264FF"/>
+    </linearGradient>
+    <linearGradient id="pink" x1="35" y1="10" x2="56" y2="40" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF22D5"/><stop offset="1" stop-color="#FF236D"/>
+    </linearGradient>
+    <linearGradient id="orange" x1="19" y1="34" x2="48" y2="57" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#662DFF"/><stop offset=".58" stop-color="#F218AA"/><stop offset="1" stop-color="#FFB31A"/>
+    </linearGradient>
+  </defs>
+  <path d="M32 4 55 17v26L32 56 9 43V17L32 4Z" fill="#101B67" fill-opacity=".16"/>
+  <path d="M32 4 55 17 32 30 9 17 32 4Z" fill="url(#cyan)"/>
+  <path d="M32 30 55 17v26L32 56V30Z" fill="url(#pink)"/>
+  <path d="M32 30v26L9 43V17l23 13Z" fill="url(#orange)"/>
+  <path d="m32 17 12 7-12 7-12-7 12-7Z" fill="#E9E7FF"/>
+  <path d="M32 31v15l-12-7V24l12 7Z" fill="#7D6DFF" fill-opacity=".85"/>
+  <path d="m32 31 12-7v15l-12 7V31Z" fill="#FF39C7" fill-opacity=".8"/>
+  <path d="m9 17 23 13 23-13M32 30v26" stroke="#FFF" stroke-opacity=".35" stroke-width=".8"/>
+</svg>
