@@ -175,6 +175,7 @@ body, .site-shell, .hero, .manifesto, .services, .audience, .process, .why, .por
 .contact-form select option { color: var(--ink); }
 .success-message p { color: var(--body); }
 .contact .button-light { color: #fff; background: var(--blue); }
+.form-error { margin: -4px 0 0; color: #c23b4a; font-size: .86rem; line-height: 1.5; }
 .footer { border-top: 1px solid var(--line); }
 
 @keyframes rise-in {
