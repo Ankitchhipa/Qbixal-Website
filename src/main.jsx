@@ -25,9 +25,10 @@ function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [formError, setFormError] = useState('')
+  const [submitting, setSubmitting] = useState(false)
   const closeMenu = () => setMenuOpen(false)
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
     const form = event.currentTarget
     const formData = new FormData(form)
@@ -56,7 +57,26 @@ function App() {
     }
 
     setFormError('')
-    setSubmitted(true)
+    setSubmitting(true)
+
+    try {
+      const response = await fetch('https://formspree.io/f/xrpgvzle', {
+        method: 'POST',
+        body: formData,
+        headers: { Accept: 'application/json' },
+      })
+
+      if (!response.ok) {
+        throw new Error('Formspree submission failed')
+      }
+
+      form.reset()
+      setSubmitted(true)
+    } catch {
+      setFormError('We could not send your enquiry. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return <div className="site-shell">
@@ -106,7 +126,7 @@ function App() {
 
       <section className="technology section-pad"><div className="section-kicker"><span>Technology</span><span>Relevant tools</span></div><div className="tech-grid">{technologies.map(([title, text]) => <div className="tech-item" key={title}><h3>{title}</h3><p>{text}</p></div>)}</div></section>
 
-      <section className="contact section-pad" id="contact"><div className="contact-heading"><p className="eyebrow">Have an idea or business requirement?</p><h2>Let’s build<br /><span>it together.</span></h2></div><div className="contact-form-wrap">{submitted ? <div className="success-message"><span className="success-mark">✓</span><h3>Enquiry received.</h3><p>Thank you. We’ll review your requirement and get in touch.</p><button className="text-link" onClick={() => setSubmitted(false)}>Send another <Arrow /></button></div> : <form className="contact-form" noValidate onSubmit={handleSubmit}><label>Name<input required minLength="2" name="name" placeholder="Your name" /></label><label>Company / Business Name<input required minLength="2" name="company" placeholder="Your company" /></label><div className="form-row"><label>Phone Number<input required name="phone" inputMode="tel" pattern="[+]?[0-9 ()-]{10,20}" placeholder="Your phone number" /></label><label>Email<input required type="email" name="email" placeholder="you@company.com" /></label></div><div className="form-row"><label>Service Required<select required name="service" defaultValue=""><option value="" disabled>Select a service</option>{services.map(([, title]) => <option key={title}>{title}</option>)}</select></label><label>Project Budget <span>(optional)</span><input name="budget" placeholder="Your budget range" /></label></div><label>Project Details<textarea required minLength="20" name="details" placeholder="Tell us about your idea or requirement..." rows="4" /></label>{formError && <p className="form-error" role="alert">{formError}</p>}<button className="button button-light" type="submit">Send Enquiry <Arrow /></button></form>}</div></section>
+      <section className="contact section-pad" id="contact"><div className="contact-heading"><p className="eyebrow">Have an idea or business requirement?</p><h2>Let’s build<br /><span>it together.</span></h2></div><div className="contact-form-wrap">{submitted ? <div className="success-message"><span className="success-mark">✓</span><h3>Enquiry received.</h3><p>Thank you. We’ll review your requirement and get in touch.</p><button className="text-link" onClick={() => setSubmitted(false)}>Send another <Arrow /></button></div> : <form className="contact-form" noValidate onSubmit={handleSubmit}><label>Name<input required minLength="2" name="name" placeholder="Your name" /></label><label>Company / Business Name<input required minLength="2" name="company" placeholder="Your company" /></label><div className="form-row"><label>Phone Number<input required name="phone" inputMode="tel" pattern="[+]?[0-9 ()-]{10,20}" placeholder="Your phone number" /></label><label>Email<input required type="email" name="email" placeholder="you@company.com" /></label></div><div className="form-row"><label>Service Required<select required name="service" defaultValue=""><option value="" disabled>Select a service</option>{services.map(([, title]) => <option key={title}>{title}</option>)}</select></label><label>Project Budget <span>(optional)</span><input name="budget" placeholder="Your budget range" /></label></div><label>Project Details<textarea required minLength="20" name="details" placeholder="Tell us about your idea or requirement..." rows="4" /></label>{formError && <p className="form-error" role="alert">{formError}</p>}<button className="button button-light" type="submit" disabled={submitting}>{submitting ? 'Sending...' : 'Send Enquiry'} {!submitting && <Arrow />}</button></form>}</div></section>
     </main>
 
     <footer className="footer section-pad"><div className="footer-brand"><a className="wordmark" href="#top"><img className="brand-mark brand-icon" src={qbixalIcon} alt="" />Qbixal</a><p>Qbixal Pvt Ltd<br />Technology Solutions for Business Growth</p></div><div className="footer-links"><strong>Explore</strong><a href="#about">About</a><a href="#services">Services</a><a href="#portfolio">Portfolio</a><a href="#process">Process</a><a href="#contact">Contact</a></div><div className="footer-links"><strong>Services</strong><a href="#services">Android App Development</a><a href="#services">Website Development</a><a href="#services">Custom Software</a><a href="#services">CRM Solutions</a><a href="#services">AI & Automation</a></div><div className="footer-bottom"><span>© Qbixal Pvt Ltd. All Rights Reserved.</span><a href="mailto:qbixal1@gmail.com">qbixal1@gmail.com</a></div></footer>
